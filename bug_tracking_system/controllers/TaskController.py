@@ -11,6 +11,7 @@ from flask import redirect
 from flask import url_for
 from bug_tracking_system import app
 import pyodbc
+from flask import jsonify
 
 server = 'bts-dm.database.windows.net'
 database = 'bts-dm'
@@ -44,9 +45,9 @@ def generate_task(cursor):
         }
     return task;
 
-@app.route('/')
-@app.route('/tasks')
-def tasks():
+@app.route('/', methods=['GET'])
+@app.route('/tasks-list', methods=['GET'])
+def generate_tasks_list_page():
     cursor = conn.cursor()
     cursor.execute('SELECT * FROM dbo.Tasks')
     tasksList = generate_tasks_list(cursor)
@@ -57,7 +58,26 @@ def tasks():
         tasks=tasksList,
     )
 
-@app.route('/create-task', methods=['POST', 'GET'])
+@app.route('/tasks', methods=['GET'])
+def get_tasks():
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM dbo.Tasks')
+    tasksList = generate_tasks_list(cursor)
+    return jsonify(tasksList), 200
+
+@app.route('/task/<int:task_id>', methods=['GET'])
+def get_task(task_id):
+    cursor = conn.cursor()
+    query = "SELECT * FROM dbo.Tasks WHERE id = %s" % task_id;
+    cursor.execute(query)
+
+    if cursor.rowcount == 0:
+        abort(404)
+    
+    task = generate_task(cursor);
+    return jsonify(task), 200
+
+@app.route('/create-task', methods=['POST'])
 def create_task():
     cursor = conn.cursor()
     cursor.execute('SELECT * FROM dbo.Tasks')
@@ -72,17 +92,17 @@ def create_task():
         id, request.form['taskType'], request.form['taskTitle'], request.form.get('taskDescription', ""), request.form['taskPriority'], 1)
     cursor.commit()
 
-    return redirect(url_for('tasks'))
+    return redirect(url_for('generate_tasks_list_page')), 201
 
 @app.route('/new-task', methods=['GET'])
-def new_task():
+def generate_new_task_page():
     return render_template(
         "new-task.html",
         year=datetime.now().year
     )
 
 @app.route('/edit-task/<int:task_id>', methods=['GET'])
-def get_task(task_id):
+def generate_edit_task_page(task_id):
     cursor = conn.cursor()
     query = "SELECT * FROM dbo.Tasks WHERE id = %s" % task_id;
     cursor.execute(query)
@@ -109,4 +129,4 @@ def save_task(task_id):
     cursor.execute('SELECT * FROM dbo.Tasks')
     tasksList = generate_tasks_list(cursor)
 
-    return redirect(url_for('tasks'))
+    return redirect(url_for('generate_tasks_list_page')), 200
