@@ -63,8 +63,13 @@ def create_task():
     cursor.execute('SELECT * FROM dbo.Tasks')
     tasksList = generate_tasks_list(cursor)
 
+    if not tasksList:
+        id = 1
+    else:
+        id = tasksList[-1]['id'] + 1
+
     cursor.execute("INSERT INTO dbo.Tasks(id, type, title, description, priority, status) VALUES (?, ?, ?, ?, ?, ?)", 
-        tasksList[-1]['id'] + 1, request.form['taskType'], request.form['taskTitle'], request.form.get('taskDescription', ""), request.form['taskPriority'], 1)
+        id, request.form['taskType'], request.form['taskTitle'], request.form.get('taskDescription', ""), request.form['taskPriority'], 1)
     cursor.commit()
 
     return redirect(url_for('tasks'))
