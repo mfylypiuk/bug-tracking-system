@@ -1,0 +1,113 @@
+﻿{% extends "layout.html" %}
+
+{% block content %}
+
+<a class="btn btn-outline-secondary btn-lg btn-block" href="new-task" role="button">New task</a>
+<h3>{{ message }}</h3>
+
+<!--<p>Use this area to provide additional information.</p>-->
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th>New</th>
+            <th>In Progress</th>
+            <th>Resolved</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td width="33%">
+                {% for task in tasks %}
+                {% if task.status == 1 %}
+                <div class="card border-secondary mb-3" style="max-width: 18rem;">
+                    <a href="/edit-task/{{ task.id }}" style="position: absolute; top: 0; left: 0; height: 100%; width: 100%;"></a>
+                    <div class="card-header">
+                        {% if task.type == 'Task' %}
+                        <span class="badge badge-primary float-left m-1">Task #{{ task.id }}</span>
+                        {% endif %}
+                        {% if task.type == 'Bug' %}
+                        <span class="badge badge-info float-left m-1">Bug #{{ task.id }}</span>
+                        {% endif %}
+                        {% if task.priority == 1 %}
+                        <span class="badge badge-secondary float-right m-1">Low</span>
+                        {% endif %}
+                        {% if task.priority == 2 %}
+                        <span class="badge badge-warning float-right m-1">Normal</span>
+                        {% endif %}
+                        {% if task.priority == 3 %}
+                        <span class="badge badge-danger float-right m-1">High</span>
+                        {% endif %}
+                    </div>
+                    <div class="card-body">
+                        <h6 class="card-title">{{ task.title }}</h6>
+                        <p class="card-text">{{ task.description }}</p>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </td>
+            <td width="33%">
+                {% for task in tasks %}
+                {% if task.status == 2 %}
+                <div class="card border-secondary mb-3">
+                    <a href="/edit-task/{{ task.id }}" style="position: absolute; top: 0; left: 0; height: 100%; width: 100%;"></a>
+                    <div class="card-header">
+                        {% if task.type == 'Task' %}
+                        <span class="badge badge-primary float-left m-1">Task #{{ task.id }}</span>
+                        {% endif %}
+                        {% if task.type == 'Bug' %}
+                        <span class="badge badge-info float-left m-1">Bug #{{ task.id }}</span>
+                        {% endif %}
+                        {% if task.priority == 1 %}
+                        <span class="badge badge-secondary float-right m-1">Low</span>
+                        {% endif %}
+                        {% if task.priority == 2 %}
+                        <span class="badge badge-warning float-right m-1">Normal</span>
+                        {% endif %}
+                        {% if task.priority == 3 %}
+                        <span class="badge badge-danger float-right m-1">High</span>
+                        {% endif %}
+                    </div>
+                    <div class="card-body">
+                        <h6 class="card-title">{{ task.title }}</h6>
+                        <p class="card-text">{{ task.description }}</p>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </td>
+            <td width="33%">
+                {% for task in tasks %}
+                {% if task.status == 3 %}
+                <div class="card border-secondary mb-3" style="max-width: 18rem;">
+                    <a href="/edit-task/{{ task.id }}" style="position: absolute; top: 0; left: 0; height: 100%; width: 100%;"></a>
+                    <div class="card-header">
+                        {% if task.type == 'Task' %}
+                        <span class="badge badge-primary float-left m-1">Task #{{ task.id }}</span>
+                        {% endif %}
+                        {% if task.type == 'Bug' %}
+                        <span class="badge badge-info float-left m-1">Bug #{{ task.id }}</span>
+                        {% endif %}
+                        {% if task.priority == 1 %}
+                        <span class="badge badge-secondary float-right m-1">Low</span>
+                        {% endif %}
+                        {% if task.priority == 2 %}
+                        <span class="badge badge-warning float-right m-1">Normal</span>
+                        {% endif %}
+                        {% if task.priority == 3 %}
+                        <span class="badge badge-danger float-right m-1">High</span>
+                        {% endif %}
+                    </div>
+                    <div class="card-body">
+                        <h6 class="card-title">{{ task.title }}</h6>
+                        <p class="card-text">{{ task.description }}</p>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+{% endblock %}

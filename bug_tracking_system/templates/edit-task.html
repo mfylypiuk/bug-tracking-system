@@ -1,0 +1,74 @@
+﻿{% extends "layout.html" %}
+
+{% block content %}
+
+<form action="{{ url_for('save_task', task_id=task.id) }}" method="post">
+    <div class="form-group">
+        <label for="taskId">Number</label>
+        <input type="text" class="form-control" id="taskId" name="taskId" value="{{ task.id }}" disabled>
+    </div>
+    <div class="form-group">
+        <label for="taskStatus" style="color: red; font-weight: bold;">Status</label>
+        <select class="form-control" id="taskStatus" name="taskStatus">
+            {% if task.status == 1 %}
+            <option value="1" selected>New</option>
+            <option value="2">In Progress</option>
+            <option value="3">Resolved</option>
+            {% endif %}
+            {% if task.status == 2 %}
+            <option value="1">New</option>
+            <option value="2" selected>In Progress</option>
+            <option value="3">Resolved</option>
+            {% endif %}
+            {% if task.status == 3 %}
+            <option value="1">New</option>
+            <option value="2">In Progress</option>
+            <option value="3" selected>Resolved</option>
+            {% endif %}
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="taskType">Type</label>
+        <select class="form-control" id="taskType" name="taskType">
+            {% if task.type == 'Task' %}
+            <option selected>Task</option>
+            <option>Bug</option>
+            {% endif %}
+            {% if task.type == 'Bug' %}
+            <option>Task</option>
+            <option selected>Bug</option>
+            {% endif %}
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="taskTitle">Name</label>
+        <input type="text" class="form-control" id="taskTitle" name="taskTitle" value="{{ task.title }}">
+    </div>
+    <div class="form-group">
+        <label for="taskDescription">Description</label>
+        <textarea class="form-control" id="taskDescription" name="taskDescription" rows="5">{{ task.description }}</textarea>
+    </div>
+    <div class="form-group">
+        <label for="taskPriority">Priority</label>
+        <select class="form-control" id="taskPriority" name="taskPriority">
+            {% if task.priority == 1 %}
+            <option value="1" selected>Low</option>
+            <option value="2">Normal</option>
+            <option value="3">High</option>
+            {% endif %}
+            {% if task.priority == 2 %}
+            <option value="1">Low</option>
+            <option value="2" selected>Normal</option>
+            <option value="3">High</option>
+            {% endif %}
+            {% if task.priority == 3 %}
+            <option value="1">Low</option>
+            <option value="2">Normal</option>
+            <option value="3" selected>High</option>
+            {% endif %}
+        </select>
+    </div>
+    <input type="submit" class="btn btn-outline-secondary btn-lg btn-block" value="Save task">
+</form>
+
+{% endblock %}

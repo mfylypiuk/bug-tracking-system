@@ -3,6 +3,7 @@ Flask==0.12.4
 itsdangerous==1.1.0
 Jinja2==2.10.3
 MarkupSafe==1.1.1
-pip==19.0.3
+pip==19.3.1
+pyodbc==4.0.27
 setuptools==40.8.0
 Werkzeug==0.16.0

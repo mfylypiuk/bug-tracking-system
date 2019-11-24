@@ -28,12 +28,19 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="bug_tracking_system\controllers\TaskController.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="bug_tracking_system\controllers\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="runserver.py" />
     <Compile Include="bug_tracking_system\__init__.py" />
     <Compile Include="bug_tracking_system\views.py" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="bug_tracking_system\" />
+    <Folder Include="bug_tracking_system\controllers\" />
     <Folder Include="bug_tracking_system\static\" />
     <Folder Include="bug_tracking_system\static\content\" />
     <Folder Include="bug_tracking_system\static\fonts\" />
@@ -41,6 +48,9 @@
     <Folder Include="bug_tracking_system\templates\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bug_tracking_system\templates\edit-task.html" />
+    <Content Include="bug_tracking_system\templates\new-task.html" />
+    <Content Include="bug_tracking_system\templates\tasks-list.html" />
     <Content Include="requirements.txt" />
     <Content Include="bug_tracking_system\static\content\bootstrap.css" />
     <Content Include="bug_tracking_system\static\content\bootstrap.min.css" />
